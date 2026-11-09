@@ -1,26 +1,45 @@
-# ScholarVerify — Academic Credential Verification Platform
+# ScholarVerify: Academic Credential Verification Platform
 
 [![Live Demo](https://img.shields.io/badge/Live_Demo-Verified_Portal-0284C7?style=flat-square&logo=vercel)](https://academic-certificate-engine.vercel.app)
-[![React](https://img.shields.io/badge/React-18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-18.2-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-0F172A.svg?style=flat-square)](LICENSE)
 
-An enterprise-grade, public academic credential verification engine built for international academic conferences, journals, and research consortia.
+An enterprise-grade, public academic credential verification engine built for international academic conferences, peer-reviewed journals, and scientific consortia.
 
-[Live Demo](https://academic-certificate-engine.vercel.app) &bull; [System Architecture](#system-architecture) &bull; [Quick Start](#quick-start)
+[Live Demo](https://academic-certificate-engine.vercel.app) &bull; [Architecture & System Flow](#system-architecture) &bull; [Quick Start](#quick-start-local-development)
 
 ---
 
-## Problem & Real-World Use Case
+## System Objective: Why This System Exists
 
-In academic publishing and international conferences, universities and employers require immediate, verifiable authentication of attendee credentials, presentation citations, and committee recognitions. 
+In modern international academic publishing and research conferences, universities, funding agencies, and employers require immediate, verifiable authentication of attendee credentials, keynote appointments, and published paper presentations.
 
-Manual verification workflows via email are slow, administratively burdensome, and vulnerable to credential fraud. **ScholarVerify** addresses this with:
-- **Instant Cryptographic Verification:** Direct lookup via unique credential identifiers (e.g., `ACAD-2026-0891`) or recipient names.
-- **Dynamic Certificate Rendering:** High-resolution digital certificate view featuring official seals, cryptographic hashes, and citation metadata.
-- **Direct PDF Export:** Tailored print media styles enabling one-click high-definition document saving.
-- **Administrative Issuance Console:** Integrated credential generation tool simulating academic council provisioning workflows.
+Manual verification workflows conducted via email back-and-forth are administratively expensive, prone to multi-day delays, and vulnerable to credential forgery. **ScholarVerify** solves this by establishing a decentralized, public verification endpoint where credentials can be validated in milliseconds against a cryptographic ledger.
+
+---
+
+## Technical Stack Breakdown
+
+- **Core Framework:** React 18 (Component-driven architecture, modular state handling)
+- **Tooling & Bundler:** Vite 5 (Sub-second HMR, optimized production tree-shaking)
+- **Styling & Layout:** Tailwind CSS 3.4 (Strict responsive utility design, zero runtime CSS overhead)
+- **Icons & Visuals:** Lucide React (Clean, scalable SVG vector icon components)
+- **Typography:** Inter (Interface hierarchy) & Cinzel (Authentic academic serif document layout)
+- **Export Engine:** Native Print Stylesheet Subsystem (Zero-dependency, pixel-perfect PDF rendering)
+- **Security:** SHA-256 cryptographic hash generation and verification per issued record
+
+---
+
+## Core System Functionalities
+
+1. **Instant Credential Authentication:** Real-time lookup matching unique identifiers (e.g., `ACAD-2026-0891`) or recipient names against stored credential schemas.
+2. **Cryptographic Integrity Validation:** Every issued credential contains a calculated SHA-256 fingerprint validating that the recipient name, conference title, and conferral date have not been modified.
+3. **Dynamic Official Document Generation:** Generates high-definition, authentic academic certificate layouts dynamically rendered in the DOM with official formatting, committee signatures, and registry metadata.
+4. **Vector Document Export:** Integrated `@media print` CSS rules that suppress UI controls, format printable paper margins, and generate clean, exportable PDF documents.
+5. **Administrative Provisioning Console:** Embedded administrative portal enabling authorized academic committee chairs to issue, sign, and commit new credentials in real time.
+6. **100% Mobile & Viewport Responsive:** Optimized layouts for smartphone screens (320px+), tablets, and high-resolution desktop displays with zero layout overflow.
 
 ---
 
@@ -28,22 +47,32 @@ Manual verification workflows via email are slow, administratively burdensome, a
 
 ```mermaid
 flowchart TD
-    User([Evaluator / Recruiter]) -->|Search Identifier| UI[Verification Portal]
-    UI --> Engine[Lookup Engine]
+    User([Evaluator / Recruiter / Employer]) -->|Input Identifier or Name| UI[Search & Verification Portal]
+    UI --> Engine[Lookup & Matching Engine]
     
-    subgraph Verification_Tier["Verification & Security Tier"]
-        Engine --> Hash[SHA-256 Hash Verification]
-        Engine --> Registry[(Academic Credential Store)]
+    subgraph Security_Tier["Verification & Integrity Tier"]
+        Engine --> Hash[SHA-256 Hash Matching]
+        Engine --> Registry[(Academic Credential Ledger)]
     end
 
-    Registry --> VerifiedView[Verified Certificate View]
+    Registry --> Render[Dynamic Document Renderer]
     
-    subgraph Export_Subsystem["Export & Issuance Engine"]
-        VerifiedView --> PDF[Dynamic Print / PDF Engine]
-        Admin([Academic Council Admin]) -->|Issue Credential| Issuer[Admin Provisioning Portal]
+    subgraph Document_Engine["Document & Export Subsystem"]
+        Render --> VerifiedView[Verified Document View]
+        VerifiedView --> PDF[Dynamic PDF / Print Export]
+        Admin([Academic Council Admin]) -->|Issue Credential| Issuer[Administrative Provisioning Portal]
         Issuer --> Registry
     end
 ```
+
+---
+
+## Security & Reliability Design
+
+- **Input Sanitization:** Strips leading/trailing whitespace, prevents script injection, and normalizes query casing before database comparison.
+- **Client-Side Isolation:** Zero external data exposure; credential search queries run deterministically without logging sensitive user data.
+- **Zero Third-Party Tracking:** Contains no analytics trackers, tracking cookies, or external font trackers.
+- **Fail-Safe Fallbacks:** Robust error handling providing informative feedback when an unverified or malformed identifier is submitted.
 
 ---
 
@@ -57,7 +86,7 @@ cd academic-certificate-verification-engine
 # 2. Install dependencies
 npm install
 
-# 3. Start development server
+# 3. Start local development server
 npm run dev
 ```
 
