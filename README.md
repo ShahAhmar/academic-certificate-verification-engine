@@ -94,13 +94,15 @@ Application will run locally at `http://localhost:5173`.
 
 ---
 
-## Deployment to Vercel
+## Production Build & Edge Deployment
 
-This repository is optimized for automated zero-configuration deployment on Vercel:
+To compile an optimized, minified production distribution bundle:
 
-1. Push this repository to your GitHub account: `github.com/ShahAhmar/academic-certificate-verification-engine`.
-2. Connect the repository in your Vercel dashboard.
-3. Deploy without modifications.
+```bash
+npm run build
+```
+
+The compiled assets in `dist/` can be deployed directly to any static edge infrastructure (Vercel, Cloudflare Pages, AWS S3 / CloudFront, or Nginx reverse proxies).
 
 ---
 
